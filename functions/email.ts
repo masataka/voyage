@@ -8,13 +8,13 @@ interface InfoCallResult extends BaseResponse {
         profile: {
             email: string;
         };
-    }
+    };
 }
 
 const email: SlackFunctionHandler<typeof EmailFunction.definition> = async ({ inputs, token }) => {
     const client = SlackAPI(token, {});
     const result = await client.users.info({ user: inputs.account }) as InfoCallResult;
     return { outputs: { email: result.ok ? result.user.profile.email : "n/a" } };
-}
+};
 
 export default email;

@@ -1,17 +1,11 @@
 {
     "importMap": "import_map.json",
     "lint": {
-        "files": {
-            "include": ["functions/"]
-        },
         "rules": {
             "tags": ["recommended"]
         }
     },
     "fmt": {
-        "files": {
-            "include": ["functions/"]
-        },
         "options": {
             "lineWidth": 120,
             "indentWidth": 4
