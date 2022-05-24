@@ -37,8 +37,10 @@ export const ChannelsFunction = DefineFunction({
     output_parameters: {
         properties: {
             list: {
-                type: Schema.types.array,
-                items: Schema.types.string,
+                type: Schema.types.string,
+                // 配列型のパラメータの実装方法が不明
+                //type: Schema.types.array,
+                //items: Schema.slack.types.channel_id,
             },
         },
         required: ["list"],
@@ -51,7 +53,7 @@ export default Manifest({
     icon: "assets/icon.png",
     functions: [
         EmailFunction,
-        // ChannelsFunction,
+        ChannelsFunction,
     ],
     outgoingDomains: [],
     botScopes: [
@@ -59,5 +61,8 @@ export default Manifest({
         "users:read",
         "users:read.email",
         "channels:read",
+        "groups:read",
+        "im:read",
+        "mpim:read",
     ],
 });

@@ -6,8 +6,8 @@ import type { ChannelsFunction } from "../manifest.ts";
 interface ListCallResult extends BaseResponse {
     channels: {
         id: string;
-        //name: string;
-        //is_private: boolean;
+        name: string;
+        is_private: boolean;
     }[];
 }
 
@@ -25,18 +25,17 @@ const channels: SlackFunctionHandler<typeof ChannelsFunction.definition> = async
 
     const list: string[] = [];
     if (result1.ok) {
-        result1.channels.forEach(async (channel) => {
+        list.push("List of participating channels...");
+        for (const channel of result1.channels) {
             const result2 = await client.conversations.members({
                 channel: channel.id,
             }) as MembersCallResult;
-
             if (result2.ok && result2.members.includes(inputs.account)) {
-                list.push(channel.id);
+                list.push(`#${channel.name}`);
             }
-        });
+        }
     }
-
-    return { outputs: { list } };
+    return { outputs: { list: list.join(", ") } };
 };
 
 export default channels;
